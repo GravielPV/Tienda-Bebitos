@@ -1,0 +1,249 @@
+/* ============================================
+   TIENDA BEBITOS - Estilos
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Hide scrollbar for category strip */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
+   FILTER BUTTONS
+   ============================================ */
+
+.filter-btn {
+  background: transparent;
+  color: #64748b;
+  font-size: 0.8125rem;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.filter-btn.active {
+  background: #7cb342;
+  color: white;
+}
+
+/* ============================================
+   PRODUCT CARDS
+   ============================================ */
+
+.product-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: #e2e8f0;
+}
+
+.product-card .add-overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.product-card:hover .add-overlay {
+  opacity: 1;
+}
+
+.product-card .add-overlay span {
+  transform: translateY(8px);
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover .add-overlay span {
+  transform: translateY(0);
+}
+
+/* Badges */
+.badge-offer {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: linear-gradient(135deg, #ff8fab, #e06b8a);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  z-index: 5;
+}
+
+.badge-new {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: linear-gradient(135deg, #7cb342, #558b2f);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  z-index: 5;
+}
+
+/* ============================================
+   CART SIDEBAR
+   ============================================ */
+
+.cart-item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  transition: all 0.15s ease;
+}
+
+.cart-item:hover {
+  background: #f1f5f9;
+}
+
+/* Cart badge bounce */
+@keyframes cart-bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+.animate-cart-bounce {
+  animation: cart-bounce 0.4s ease-in-out;
+}
+
+/* ============================================
+   TOAST
+   ============================================ */
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #1e293b;
+  color: white;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================
+   WHATSAPP FLOAT
+   ============================================ */
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+#whatsapp-float {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+#whatsapp-float::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.3);
+  animation: pulse-soft 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* ============================================
+   VARIANT THUMBNAILS (Amazon-style)
+   ============================================ */
+
+.variant-strip {
+  max-height: 2.5rem;
+  overflow: hidden;
+}
+
+.variant-thumb {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+.variant-thumb:hover {
+  opacity: 1;
+  border-color: #cbd5e1;
+}
+
+.variant-thumb.active {
+  border-color: #7cb342;
+  opacity: 1;
+  box-shadow: 0 0 0 1px rgba(124, 179, 66, 0.3);
+}
+
+.variant-thumb img {
+  display: block;
+}
+
+/* Line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

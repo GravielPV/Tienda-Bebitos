@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda Bebitos | Todo para tu bebé en San Cristóbal, RD</title>
+    <meta
+      name="description"
+      content="Tienda Bebitos: ropa, calzado, juguetes y accesorios para bebés y niños en San Cristóbal, República Dominicana. Compra al mejor precio."
+    />
+    <meta
+      name="keywords"
+      content="tienda bebés, ropa bebé, calzado niños, juguetes, San Cristóbal, República Dominicana"
+    />
+    <meta name="author" content="Tienda Bebitos" />
+    <meta property="og:title" content="Tienda Bebitos | Todo para tu bebé" />
+    <meta
+      property="og:description"
+      content="Ropa, calzado, juguetes y accesorios para bebés y niños en San Cristóbal, RD."
+    />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "baby-blue": "#A8D8EA",
+              "baby-blue-dark": "#7EC8E3",
+              "baby-pink": "#F4C2C2",
+              "baby-pink-dark": "#E8A0A0",
+              "baby-yellow": "#FFF9C4",
+              "baby-lavender": "#D4B8E0",
+              primary: "#7CB342",
+              "primary-dark": "#558B2F",
+              accent: "#FF8FAB",
+              "accent-dark": "#E06B8A",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.js"></script>
+    <link rel="icon" type="image/jpeg" href="Fotos/logo.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="font-body bg-gray-50 text-gray-700">
+    <!-- ====== NAVBAR ====== -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-sm">
+      <!-- Top info bar -->
+      <div class="bg-primary-dark text-white text-xs py-1.5">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+          <span>📍 Av. Constitución 177, San Cristóbal, RD</span>
+          <div class="flex items-center gap-4">
+            <span class="hidden sm:inline">Lun-Sáb 8AM-8PM</span>
+            <a href="tel:+18095289181" class="hover:underline"
+              >(809) 528-9181</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Main nav row -->
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center gap-4 h-14">
+          <!-- Logo -->
+          <a href="#" class="flex items-center gap-2 flex-shrink-0">
+            <img
+              src="Fotos/logo.jpg"
+              alt="Bebitos Logo"
+              class="w-9 h-9 rounded-xl object-cover"
+            />
+            <span
+              class="font-display font-bold text-lg text-gray-800 hidden sm:inline"
+            >
+              Tienda <span class="text-primary">Bebitos</span>
+            </span>
+          </a>
+
+          <!-- Search Bar -->
+          <div class="flex-1 max-w-2xl">
+            <div class="relative">
+              <input
+                id="search-bar"
+                type="text"
+                placeholder="Buscar productos..."
+                class="w-full pl-4 pr-12 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all"
+              />
+              <button
+                id="search-btn"
+                class="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+              >
+                <i data-lucide="search" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-1">
+            <a
+              href="https://wa.me/18095289181"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-2.5 rounded-xl hover:bg-green-50 text-green-600 transition-colors hidden sm:flex"
+              aria-label="WhatsApp"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                />
+              </svg>
+            </a>
+            <button
+              id="cart-btn"
+              class="relative p-2.5 rounded-xl hover:bg-gray-100 transition-colors"
+              aria-label="Ver carrito"
+            >
+              <i data-lucide="shopping-cart" class="w-5 h-5 text-gray-600"></i>
+              <span
+                id="cart-count"
+                class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-accent text-white text-xs font-bold rounded-full flex items-center justify-center hidden"
+                >0</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category strip -->
+      <div class="border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+          <div
+            class="flex items-center gap-1 overflow-x-auto hide-scrollbar py-2"
+          >
+            <button
+              class="filter-btn active whitespace-nowrap px-4 py-1.5 rounded-full"
+              data-filter="todos"
+            >
+              Todos
+            </button>
+            <button
+              class="filter-btn whitespace-nowrap px-4 py-1.5 rounded-full"
+              data-filter="ropa"
+            >
+              👗 Ropa
+            </button>
+            <button
+              class="filter-btn whitespace-nowrap px-4 py-1.5 rounded-full"
+              data-filter="calzado"
+            >
+              👟 Calzado
+            </button>
+            <button
+              class="filter-btn whitespace-nowrap px-4 py-1.5 rounded-full"
+              data-filter="juguetes"
+            >
+              🧸 Juguetes
+            </button>
+            <button
+              class="filter-btn whitespace-nowrap px-4 py-1.5 rounded-full"
+              data-filter="accesorios"
+            >
+              🎒 Accesorios
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ====== HERO COMPACTO ====== -->
+    <section
+      class="relative bg-gradient-to-br from-baby-blue/30 via-white to-baby-pink/20 overflow-hidden"
+    >
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-baby-pink/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"
+      ></div>
+      <div
+        class="absolute bottom-0 left-0 w-48 h-48 bg-baby-blue/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4"
+      ></div>
+      <div class="relative max-w-7xl mx-auto px-4 py-10 sm:py-14">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div class="text-center lg:text-left">
+            <div
+              class="inline-flex items-center gap-2 bg-accent/10 text-accent-dark px-3 py-1 rounded-full text-xs font-semibold mb-4"
+            >
+              <span>🎉</span> ¡Nuevos productos cada semana!
+            </div>
+            <h2
+              class="font-display font-extrabold text-3xl sm:text-4xl text-gray-800 leading-tight mb-3"
+            >
+              Todo para tu
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-baby-blue-dark"
+                >bebé</span
+              >
+              en un solo lugar
+            </h2>
+            <p class="text-gray-500 mb-6 max-w-md mx-auto lg:mx-0">
+              Ropa, calzado, juguetes y accesorios con la mejor calidad y precio
+              en San Cristóbal.
+            </p>
+            <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+              <a
+                href="#productos"
+                class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-xl font-bold text-sm hover:shadow-lg hover:shadow-primary/30 transition-all"
+              >
+                Ver productos <i data-lucide="arrow-down" class="w-4 h-4"></i>
+              </a>
+              <a
+                href="https://wa.me/18095289181"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 bg-white text-gray-700 px-6 py-3 rounded-xl font-bold text-sm border border-gray-200 hover:border-green-400 hover:text-green-600 transition-all"
+              >
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                  />
+                </svg>
+                WhatsApp
+              </a>
+            </div>
+          </div>
+          <!-- Category cards -->
+          <div class="grid grid-cols-2 gap-3">
+            <a
+              href="#productos"
+              onclick="document.querySelector('[data-filter=ropa]').click()"
+              class="group bg-white/80 backdrop-blur rounded-2xl p-5 text-center border border-white hover:shadow-lg hover:border-baby-pink/40 transition-all"
+            >
+              <div
+                class="text-4xl mb-2 group-hover:scale-110 transition-transform"
+              >
+                👗
+              </div>
+              <p class="font-display font-bold text-gray-800 text-sm">Ropa</p>
+              <p class="text-gray-400 text-xs mt-0.5">+120 productos</p>
+            </a>
+            <a
+              href="#productos"
+              onclick="document.querySelector('[data-filter=calzado]').click()"
+              class="group bg-white/80 backdrop-blur rounded-2xl p-5 text-center border border-white hover:shadow-lg hover:border-baby-blue/40 transition-all"
+            >
+              <div
+                class="text-4xl mb-2 group-hover:scale-110 transition-transform"
+              >
+                👟
+              </div>
+              <p class="font-display font-bold text-gray-800 text-sm">
+                Calzado
+              </p>
+              <p class="text-gray-400 text-xs mt-0.5">+80 productos</p>
+            </a>
+            <a
+              href="#productos"
+              onclick="document.querySelector('[data-filter=juguetes]').click()"
+              class="group bg-white/80 backdrop-blur rounded-2xl p-5 text-center border border-white hover:shadow-lg hover:border-baby-yellow/60 transition-all"
+            >
+              <div
+                class="text-4xl mb-2 group-hover:scale-110 transition-transform"
+              >
+                🧸
+              </div>
+              <p class="font-display font-bold text-gray-800 text-sm">
+                Juguetes
+              </p>
+              <p class="text-gray-400 text-xs mt-0.5">+200 productos</p>
+            </a>
+            <a
+              href="#productos"
+              onclick="
+                document.querySelector('[data-filter=accesorios]').click()
+              "
+              class="group bg-white/80 backdrop-blur rounded-2xl p-5 text-center border border-white hover:shadow-lg hover:border-baby-lavender/40 transition-all"
+            >
+              <div
+                class="text-4xl mb-2 group-hover:scale-110 transition-transform"
+              >
+                🎒
+              </div>
+              <p class="font-display font-bold text-gray-800 text-sm">
+                Accesorios
+              </p>
+              <p class="text-gray-400 text-xs mt-0.5">+90 productos</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PROMO BANNER ====== -->
+    <section
+      class="bg-gradient-to-r from-primary via-primary-dark to-accent text-white"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4"
+      >
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-2xl flex-shrink-0">🔥</span>
+          <div class="min-w-0">
+            <p class="font-bold text-sm sm:text-base truncate">
+              Hasta 30% OFF en productos seleccionados
+            </p>
+            <p class="text-white/70 text-xs sm:text-sm truncate">
+              Regalos con compras mayores a RD$2,000 🎁
+            </p>
+          </div>
+        </div>
+        <a
+          href="https://wa.me/18095289181?text=Hola%2C%20quiero%20saber%20sobre%20las%20ofertas"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex-shrink-0 bg-white text-primary-dark px-4 py-2 rounded-xl text-sm font-bold hover:shadow-lg transition-all"
+        >
+          Preguntar
+        </a>
+      </div>
+    </section>
+
+    <!-- ====== PRODUCTS (MAIN CONTENT) ====== -->
+    <section id="productos" class="py-6 min-h-[60vh]">
+      <div class="max-w-7xl mx-auto px-4">
+        <!-- Results header -->
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h1
+              id="products-title"
+              class="font-display font-bold text-xl text-gray-800"
+            >
+              Todos los productos
+            </h1>
+            <p id="products-count" class="text-sm text-gray-500 mt-0.5"></p>
+          </div>
+          <select
+            id="sort-select"
+            class="px-3 py-2 rounded-xl border border-gray-200 text-sm bg-white focus:border-primary outline-none cursor-pointer"
+          >
+            <option value="default">Ordenar por</option>
+            <option value="price-asc">Menor precio</option>
+            <option value="price-desc">Mayor precio</option>
+            <option value="name-asc">Nombre A-Z</option>
+            <option value="newest">Más nuevos</option>
+          </select>
+        </div>
+
+        <!-- Products Grid -->
+        <div
+          id="products-grid"
+          class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4"
+        ></div>
+
+        <!-- No results -->
+        <div id="no-results" class="hidden py-16 text-center">
+          <div class="text-5xl mb-3">🔍</div>
+          <p class="font-semibold text-gray-700">No se encontraron productos</p>
+          <p class="text-gray-500 text-sm mt-1">
+            Intenta con otra búsqueda o categoría
+          </p>
+          <button
+            onclick="clearSearch()"
+            class="mt-4 px-6 py-2.5 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-primary-dark transition-colors"
+          >
+            Ver todos los productos
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== TESTIMONIOS ====== -->
+    <section class="py-12 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="font-display font-bold text-xl text-gray-800">
+              Lo que dicen nuestros clientes
+            </h2>
+            <div class="flex items-center gap-2 mt-1">
+              <div class="flex text-yellow-400 text-sm">
+                ★★★★<span class="text-yellow-300">★</span>
+              </div>
+              <span class="font-bold text-gray-800 text-sm">4.5</span>
+              <span class="text-gray-500 text-xs">/ 5 en +500 reseñas</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="bg-white rounded-2xl p-5 border border-gray-100">
+            <div class="flex text-yellow-400 text-sm mb-3">★★★★★</div>
+            <p class="text-gray-600 text-sm italic mb-4">
+              "Excelente servicio, gran variedad y buenos precios. Siempre
+              encuentro lo que busco para mi bebé. ¡100% recomendada!"
+            </p>
+            <div class="flex items-center gap-2">
+              <div
+                class="w-8 h-8 bg-baby-pink/30 rounded-full flex items-center justify-center font-bold text-accent-dark text-xs"
+              >
+                M
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">
+                  María Rodríguez
+                </p>
+                <p class="text-xs text-gray-400">Cliente frecuente</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-100">
+            <div class="flex text-yellow-400 text-sm mb-3">★★★★★</div>
+            <p class="text-gray-600 text-sm italic mb-4">
+              "Encuentras todo para tus niños. La ropa es de muy buena calidad y
+              los precios son accesibles. El personal es muy amable."
+            </p>
+            <div class="flex items-center gap-2">
+              <div
+                class="w-8 h-8 bg-baby-blue/30 rounded-full flex items-center justify-center font-bold text-primary text-xs"
+              >
+                A
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Ana Pérez</p>
+                <p class="text-xs text-gray-400">Madre de 2 niños</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-100">
+            <div class="flex text-yellow-400 text-sm mb-3">
+              ★★★★<span class="text-yellow-300">★</span>
+            </div>
+            <p class="text-gray-600 text-sm italic mb-4">
+              "Los juguetes son originales y a buen precio. Me encanta que
+              tienen de todo, desde recién nacido hasta niños más grandes."
+            </p>
+            <div class="flex items-center gap-2">
+              <div
+                class="w-8 h-8 bg-baby-lavender/30 rounded-full flex items-center justify-center font-bold text-purple-600 text-xs"
+              >
+                C
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Carmen Santos</p>
+                <p class="text-xs text-gray-400">Compradora verificada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== UBICACIÓN ====== -->
+    <section class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="font-display font-bold text-xl text-gray-800 mb-6">
+          Visítanos
+        </h2>
+        <div class="grid lg:grid-cols-5 gap-6">
+          <div
+            class="lg:col-span-3 rounded-2xl overflow-hidden border border-gray-100 h-64 lg:h-auto min-h-[240px]"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500!2d-70.11007770362363!3d18.41514646638378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDI0JzU0LjUiTiA3MMKwMDYnMzYuMyJX!5e0!3m2!1ses!2sdo!4v1"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación de Tienda Bebitos"
+            ></iframe>
+          </div>
+          <div class="lg:col-span-2 flex flex-col gap-3">
+            <div class="bg-gray-50 rounded-xl p-4 flex items-start gap-3">
+              <div
+                class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Dirección</p>
+                <p class="text-gray-500 text-sm">
+                  Av. Constitución 177, San Cristóbal, República Dominicana
+                </p>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 flex items-start gap-3">
+              <div
+                class="w-10 h-10 bg-pink-50 rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="phone" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Teléfono</p>
+                <a
+                  href="tel:+18095289181"
+                  class="text-gray-500 text-sm hover:text-primary transition-colors"
+                  >(809) 528-9181</a
+                >
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 flex items-start gap-3">
+              <div
+                class="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="clock" class="w-5 h-5 text-yellow-600"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Horario</p>
+                <p class="text-gray-500 text-sm">
+                  Lunes a Sábado: 8:00 AM - 8:00 PM
+                </p>
+                <p class="text-gray-500 text-sm">Domingos: 9:00 AM - 2:00 PM</p>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/18095289181?text=Hola%2C%20quiero%20información%20sobre%20sus%20productos"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all mt-auto"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                />
+              </svg>
+              Escríbenos por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="bg-gray-900 text-gray-400 pt-10 pb-6">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <img
+                src="Fotos/logo.jpg"
+                alt="Bebitos Logo"
+                class="w-8 h-8 rounded-lg object-cover"
+              />
+              <span class="font-display font-bold text-white"
+                >Tienda Bebitos</span
+              >
+            </div>
+            <p class="text-sm leading-relaxed">
+              Tu tienda de confianza para todo lo que tu bebé necesita.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white text-sm mb-3">Categorías</h4>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a
+                  href="#productos"
+                  class="hover:text-primary transition-colors"
+                  >Ropa de bebé</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#productos"
+                  class="hover:text-primary transition-colors"
+                  >Calzado infantil</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#productos"
+                  class="hover:text-primary transition-colors"
+                  >Juguetes</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#productos"
+                  class="hover:text-primary transition-colors"
+                  >Accesorios</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white text-sm mb-3">Contacto</h4>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-start gap-2">
+                <i
+                  data-lucide="map-pin"
+                  class="w-4 h-4 mt-0.5 text-primary flex-shrink-0"
+                ></i>
+                Av. Constitución 177, San Cristóbal
+              </li>
+              <li class="flex items-center gap-2">
+                <i
+                  data-lucide="phone"
+                  class="w-4 h-4 text-primary flex-shrink-0"
+                ></i>
+                <a
+                  href="tel:+18095289181"
+                  class="hover:text-primary transition-colors"
+                  >(809) 528-9181</a
+                >
+              </li>
+              <li class="flex items-center gap-2">
+                <i
+                  data-lucide="clock"
+                  class="w-4 h-4 text-primary flex-shrink-0"
+                ></i>
+                Lun-Sáb 8AM-8PM | Dom 9AM-2PM
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white text-sm mb-3">Síguenos</h4>
+            <div class="flex gap-2">
+              <a
+                href="https://www.facebook.com/tiendabebitosSC/?locale=es_LA"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://www.instagram.com/tienda_bebitos/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 transition-all"
+                aria-label="Instagram"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://wa.me/18095289181"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors"
+                aria-label="WhatsApp"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500"
+        >
+          <p>&copy; 2025 Tienda Bebitos. Todos los derechos reservados.</p>
+          <a
+            href="dashboard.html"
+            class="text-gray-600 hover:text-primary transition-colors flex items-center gap-1"
+          >
+            <i data-lucide="settings" class="w-3 h-3"></i> Admin
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ====== CART SIDEBAR ====== -->
+    <div
+      id="cart-overlay"
+      class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300"
+    ></div>
+    <div
+      id="cart-sidebar"
+      class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
+    >
+      <div
+        class="flex items-center justify-between p-5 border-b border-gray-100"
+      >
+        <div class="flex items-center gap-3">
+          <i data-lucide="shopping-cart" class="w-5 h-5 text-primary"></i>
+          <h3 class="font-display font-bold text-lg text-gray-800">
+            Tu Carrito
+          </h3>
+          <span
+            id="cart-sidebar-count"
+            class="bg-primary/10 text-primary text-sm font-bold px-2 py-0.5 rounded-full"
+            >0</span
+          >
+        </div>
+        <button
+          id="close-cart"
+          class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+          aria-label="Cerrar carrito"
+        >
+          <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
+        </button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto p-5">
+        <div
+          id="cart-empty"
+          class="flex flex-col items-center justify-center h-full text-center"
+        >
+          <div class="text-5xl mb-3">🛒</div>
+          <p class="text-gray-500 font-medium">Tu carrito está vacío</p>
+          <p class="text-gray-400 text-sm mt-1">
+            ¡Agrega productos para comenzar!
+          </p>
+        </div>
+        <div id="cart-items-list" class="space-y-3 hidden"></div>
+      </div>
+      <div id="cart-footer" class="border-t border-gray-100 p-5 hidden">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-gray-600 font-medium">Total:</span>
+          <span
+            id="cart-total"
+            class="font-display font-bold text-2xl text-gray-800"
+            >RD$0</span
+          >
+        </div>
+        <a
+          id="checkout-whatsapp"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white w-full py-3.5 rounded-2xl font-bold transition-all duration-300"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+            />
+          </svg>
+          Pedir por WhatsApp
+        </a>
+        <button
+          id="clear-cart"
+          class="w-full mt-2 py-2.5 text-gray-500 hover:text-red-500 font-medium text-sm transition-colors"
+        >
+          Vaciar carrito
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== WHATSAPP FLOAT (mobile) ====== -->
+    <a
+      href="https://wa.me/18095289181?text=Hola%2C%20quiero%20información%20sobre%20sus%20productos"
+      target="_blank"
+      rel="noopener noreferrer"
+      id="whatsapp-float"
+      class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:bg-green-600 hover:scale-110 transition-all duration-300 sm:hidden"
+      aria-label="Contactar por WhatsApp"
+    >
+      <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
+    </a>
+
+    <script src="shared.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

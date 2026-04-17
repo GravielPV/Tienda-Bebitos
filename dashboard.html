@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Tienda Bebitos - Administración</title>
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "baby-blue": "#A8D8EA",
+              "baby-blue-dark": "#7EC8E3",
+              "baby-pink": "#F4C2C2",
+              "baby-pink-dark": "#E8A0A0",
+              primary: "#7CB342",
+              "primary-dark": "#558B2F",
+              accent: "#FF8FAB",
+              "accent-dark": "#E06B8A",
+              sidebar: "#1e293b",
+              "sidebar-hover": "#334155",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.js"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Sidebar mobile toggle */
+      #sidebar.sidebar-open {
+        transform: translateX(0);
+      }
+
+      /* Table row hover */
+      .table-row {
+        transition: background-color 0.15s ease;
+      }
+      .table-row:hover {
+        background-color: #f8fafc;
+      }
+
+      /* Modal animation */
+      .modal-overlay {
+        transition: opacity 0.2s ease;
+      }
+      .modal-content {
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+      .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-overlay.active .modal-content {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      /* Toast */
+      .dash-toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: 0.875rem 1.5rem;
+        border-radius: 1rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+      }
+      .dash-toast.show {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .dash-toast.success {
+        background: #065f46;
+        color: white;
+      }
+      .dash-toast.error {
+        background: #991b1b;
+        color: white;
+      }
+      .dash-toast.info {
+        background: #1e3a5f;
+        color: white;
+      }
+
+      /* Emoji picker grid */
+      .emoji-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 4px;
+      }
+      .emoji-grid button {
+        font-size: 1.5rem;
+        padding: 6px;
+        border-radius: 8px;
+        transition: background 0.15s;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      .emoji-grid button:hover {
+        background: #e2e8f0;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+      }
+
+      /* Badge preview */
+      .badge-preview {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: white;
+      }
+    </style>
+    <link rel="icon" type="image/jpeg" href="Fotos/logo.jpg" />
+  </head>
+  <body class="bg-gray-100 font-body min-h-screen">
+    <!-- ======== SIDEBAR ======== -->
+    <aside
+      id="sidebar"
+      class="fixed top-0 left-0 h-full w-64 bg-sidebar text-white z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300"
+    >
+      <div class="flex flex-col h-full">
+        <!-- Logo -->
+        <div class="p-6 border-b border-white/10">
+          <a href="index.html" class="flex items-center gap-3 group">
+            <img
+              src="Fotos/logo.jpg"
+              alt="Bebitos Logo"
+              class="w-10 h-10 rounded-xl object-cover"
+            />
+            <div>
+              <span class="font-display font-bold text-lg">Bebitos</span>
+              <p class="text-xs text-gray-400">Panel de Admin</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Nav -->
+        <nav class="flex-1 p-4 space-y-1">
+          <a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/20 text-primary font-medium text-sm"
+            data-section="products"
+          >
+            <i data-lucide="package" class="w-5 h-5"></i>
+            Productos
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-sidebar-hover hover:text-white font-medium text-sm transition-colors"
+            data-section="stats"
+          >
+            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+            Resumen
+          </a>
+          <a
+            href="index.html"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-sidebar-hover hover:text-white font-medium text-sm transition-colors"
+          >
+            <i data-lucide="external-link" class="w-5 h-5"></i>
+            Ver Tienda
+          </a>
+        </nav>
+
+        <!-- Footer -->
+        <div class="p-4 border-t border-white/10">
+          <div class="flex items-center gap-3 px-4 py-2">
+            <div
+              class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-sm font-bold"
+            >
+              A
+            </div>
+            <div>
+              <p class="text-sm font-medium">Admin</p>
+              <p class="text-xs text-gray-400">Administrador</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======== MOBILE SIDEBAR OVERLAY ======== -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"
+      onclick="toggleSidebar()"
+    ></div>
+
+    <!-- ======== MAIN CONTENT ======== -->
+    <main class="lg:ml-64 min-h-screen">
+      <!-- Top Bar -->
+      <header
+        class="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-gray-200"
+      >
+        <div
+          class="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16"
+        >
+          <div class="flex items-center gap-4">
+            <button
+              onclick="toggleSidebar()"
+              class="lg:hidden p-2 rounded-xl hover:bg-gray-100"
+              aria-label="Toggle menu"
+            >
+              <i data-lucide="menu" class="w-5 h-5 text-gray-600"></i>
+            </button>
+            <div>
+              <h1
+                id="page-title"
+                class="font-display font-bold text-lg text-gray-800"
+              >
+                Productos
+              </h1>
+              <p id="page-subtitle" class="text-xs text-gray-500">
+                Gestiona el catálogo de la tienda
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              onclick="openAddModal()"
+              class="flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
+            >
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Nuevo Producto</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- ======== STATS CARDS ======== -->
+      <div id="stats-section" class="px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div
+            class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center"
+              >
+                <i data-lucide="package" class="w-5 h-5 text-primary"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-500 uppercase"
+                >Total</span
+              >
+            </div>
+            <p
+              id="stat-total"
+              class="font-display font-bold text-2xl text-gray-800"
+            >
+              0
+            </p>
+            <p class="text-xs text-gray-400 mt-1">productos</p>
+          </div>
+          <div
+            class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center"
+              >
+                <i data-lucide="tag" class="w-5 h-5 text-accent"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-500 uppercase"
+                >Ofertas</span
+              >
+            </div>
+            <p
+              id="stat-offers"
+              class="font-display font-bold text-2xl text-gray-800"
+            >
+              0
+            </p>
+            <p class="text-xs text-gray-400 mt-1">con descuento</p>
+          </div>
+          <div
+            class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center"
+              >
+                <i data-lucide="package-x" class="w-5 h-5 text-red-500"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-500 uppercase"
+                >Agotados</span
+              >
+            </div>
+            <p
+              id="stat-new"
+              class="font-display font-bold text-2xl text-gray-800"
+            >
+              0
+            </p>
+            <p class="text-xs text-gray-400 mt-1">sin stock</p>
+          </div>
+          <div
+            class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div
+                class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center"
+              >
+                <i data-lucide="layers" class="w-5 h-5 text-purple-500"></i>
+              </div>
+              <span class="text-xs font-semibold text-gray-500 uppercase"
+                >Categorías</span
+              >
+            </div>
+            <p
+              id="stat-categories"
+              class="font-display font-bold text-2xl text-gray-800"
+            >
+              0
+            </p>
+            <p class="text-xs text-gray-400 mt-1">activas</p>
+          </div>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div
+          class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 mb-6"
+        >
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <i
+                data-lucide="search"
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+              ></i>
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Buscar producto por nombre..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all"
+              />
+            </div>
+            <select
+              id="filter-category"
+              class="px-4 py-2.5 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm bg-white"
+            >
+              <option value="todos">Todas las categorías</option>
+              <option value="ropa">Ropa</option>
+              <option value="calzado">Calzado</option>
+              <option value="juguetes">Juguetes</option>
+              <option value="accesorios">Accesorios</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Table -->
+        <div
+          class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+        >
+          <!-- Table Header -->
+          <div
+            class="hidden md:grid md:grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider"
+          >
+            <div class="col-span-1">ID</div>
+            <div class="col-span-1">Icono</div>
+            <div class="col-span-3">Nombre</div>
+            <div class="col-span-1">Categoría</div>
+            <div class="col-span-1">Precio</div>
+            <div class="col-span-1">P. Original</div>
+            <div class="col-span-1">Stock</div>
+            <div class="col-span-1">Estado</div>
+            <div class="col-span-2 text-right">Acciones</div>
+          </div>
+          <!-- Table Body -->
+          <div id="products-table-body">
+            <!-- Se renderiza dinámicamente -->
+          </div>
+          <!-- Empty state -->
+          <div id="empty-state" class="hidden py-16 text-center">
+            <div class="text-5xl mb-4">📦</div>
+            <p class="text-gray-500 font-medium">No se encontraron productos</p>
+            <p class="text-gray-400 text-sm mt-1">
+              Intenta cambiar tu búsqueda o agrega uno nuevo
+            </p>
+          </div>
+        </div>
+
+        <!-- Bulk Actions -->
+        <div class="flex flex-wrap items-center justify-between mt-4 gap-3">
+          <p id="product-count-label" class="text-sm text-gray-500"></p>
+          <div class="flex gap-2">
+            <button
+              onclick="exportProducts()"
+              class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 text-sm font-medium transition-colors"
+            >
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Exportar JSON
+            </button>
+            <label
+              class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 text-sm font-medium transition-colors cursor-pointer"
+            >
+              <i data-lucide="upload" class="w-4 h-4"></i>
+              Importar JSON
+              <input
+                type="file"
+                id="import-input"
+                accept=".json"
+                class="hidden"
+                onchange="importProducts(event)"
+              />
+            </label>
+            <button
+              onclick="resetToDefaults()"
+              class="flex items-center gap-2 px-4 py-2 rounded-xl border border-red-200 text-red-500 hover:bg-red-50 text-sm font-medium transition-colors"
+            >
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              Restaurar
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ======== MODAL: AGREGAR / EDITAR PRODUCTO ======== -->
+    <div
+      id="product-modal"
+      class="modal-overlay fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none"
+    >
+      <div
+        class="modal-content bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 shadow-2xl"
+      >
+        <!-- Modal Header -->
+        <div
+          class="sticky top-0 bg-white rounded-t-3xl border-b border-gray-100 px-6 py-5 flex items-center justify-between z-10"
+        >
+          <div>
+            <h2
+              id="modal-title"
+              class="font-display font-bold text-xl text-gray-800"
+            >
+              Nuevo Producto
+            </h2>
+            <p id="modal-subtitle" class="text-sm text-gray-500">
+              Completa los datos del producto
+            </p>
+          </div>
+          <button
+            onclick="closeModal()"
+            class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+            aria-label="Cerrar"
+          >
+            <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <form
+          id="product-form"
+          class="p-6 space-y-5"
+          onsubmit="handleFormSubmit(event)"
+        >
+          <input type="hidden" id="form-id" value="" />
+
+          <!-- Emoji Selector -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Icono del Producto</label
+            >
+            <div class="flex items-center gap-4">
+              <div
+                id="emoji-preview"
+                class="w-16 h-16 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center text-3xl cursor-pointer hover:border-primary transition-colors"
+                onclick="toggleEmojiPicker()"
+              >
+                👶
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">
+                  Haz clic para cambiar el icono
+                </p>
+                <p class="text-xs text-gray-400">
+                  Selecciona un emoji representativo
+                </p>
+              </div>
+            </div>
+            <!-- Emoji Picker -->
+            <div
+              id="emoji-picker"
+              class="hidden mt-3 p-3 bg-gray-50 rounded-xl border border-gray-200"
+            >
+              <div class="emoji-grid">
+                <button type="button" onclick="selectEmoji('👶')">👶</button>
+                <button type="button" onclick="selectEmoji('👗')">👗</button>
+                <button type="button" onclick="selectEmoji('👟')">👟</button>
+                <button type="button" onclick="selectEmoji('🧸')">🧸</button>
+                <button type="button" onclick="selectEmoji('🎒')">🎒</button>
+                <button type="button" onclick="selectEmoji('🍼')">🍼</button>
+                <button type="button" onclick="selectEmoji('🌙')">🌙</button>
+                <button type="button" onclick="selectEmoji('🩴')">🩴</button>
+                <button type="button" onclick="selectEmoji('🧱')">🧱</button>
+                <button type="button" onclick="selectEmoji('🎀')">🎀</button>
+                <button type="button" onclick="selectEmoji('🧢')">🧢</button>
+                <button type="button" onclick="selectEmoji('👕')">👕</button>
+                <button type="button" onclick="selectEmoji('👖')">👖</button>
+                <button type="button" onclick="selectEmoji('🧦')">🧦</button>
+                <button type="button" onclick="selectEmoji('👑')">👑</button>
+                <button type="button" onclick="selectEmoji('🎁')">🎁</button>
+                <button type="button" onclick="selectEmoji('🚗')">🚗</button>
+                <button type="button" onclick="selectEmoji('🏀')">🏀</button>
+                <button type="button" onclick="selectEmoji('🎨')">🎨</button>
+                <button type="button" onclick="selectEmoji('📚')">📚</button>
+                <button type="button" onclick="selectEmoji('🎵')">🎵</button>
+                <button type="button" onclick="selectEmoji('🐻')">🐻</button>
+                <button type="button" onclick="selectEmoji('🦄')">🦄</button>
+                <button type="button" onclick="selectEmoji('🐥')">🐥</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name -->
+          <div>
+            <label
+              for="form-name"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+              >Nombre del Producto *</label
+            >
+            <input
+              type="text"
+              id="form-name"
+              required
+              maxlength="80"
+              placeholder="Ej: Conjunto Bebé Algodón"
+              class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all"
+            />
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label
+              for="form-category"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+              >Categoría *</label
+            >
+            <select
+              id="form-category"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm bg-white transition-all"
+            >
+              <option value="">Seleccionar categoría</option>
+              <option value="ropa">Ropa</option>
+              <option value="calzado">Calzado</option>
+              <option value="juguetes">Juguetes</option>
+              <option value="accesorios">Accesorios</option>
+            </select>
+          </div>
+
+          <!-- Prices Row -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                for="form-price"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+                >Precio (RD$) *</label
+              >
+              <input
+                type="number"
+                id="form-price"
+                required
+                min="1"
+                step="1"
+                placeholder="850"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all"
+              />
+            </div>
+            <div>
+              <label
+                for="form-original-price"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+                >Precio Original (RD$)</label
+              >
+              <input
+                type="number"
+                id="form-original-price"
+                min="0"
+                step="1"
+                placeholder="Dejar vacío si no hay descuento"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all"
+              />
+              <p class="text-xs text-gray-400 mt-1">
+                Si tiene descuento, pon el precio anterior
+              </p>
+            </div>
+          </div>
+
+          <!-- Badge & New -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                for="form-badge"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+                >Badge / Etiqueta</label
+              >
+              <select
+                id="form-badge"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm bg-white transition-all"
+              >
+                <option value="">Sin etiqueta</option>
+                <option value="Oferta">🏷️ Oferta</option>
+                <option value="Popular">🔥 Popular</option>
+                <option value="Agotándose">⚡ Agotándose</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2"
+                >Marcar como</label
+              >
+              <label
+                class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  id="form-is-new"
+                  class="w-4 h-4 text-primary rounded focus:ring-primary"
+                />
+                <span class="text-sm text-gray-600">Producto Nuevo</span>
+              </label>
+              <label
+                class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors mt-2"
+              >
+                <input
+                  type="checkbox"
+                  id="form-in-stock"
+                  checked
+                  class="w-4 h-4 text-green-600 rounded focus:ring-green-500"
+                />
+                <span class="text-sm text-gray-600">En Stock / Disponible</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Preview -->
+          <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100">
+            <p
+              class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3"
+            >
+              Vista previa
+            </p>
+            <div id="form-preview" class="flex items-center gap-4">
+              <div
+                class="w-14 h-14 bg-white rounded-xl flex items-center justify-center text-2xl border border-gray-200"
+              >
+                <span id="preview-emoji">👶</span>
+              </div>
+              <div>
+                <p
+                  id="preview-name"
+                  class="font-semibold text-gray-800 text-sm"
+                >
+                  Nombre del producto
+                </p>
+                <div class="flex items-center gap-2 mt-1">
+                  <span
+                    id="preview-price"
+                    class="font-bold text-primary text-sm"
+                    >RD$0</span
+                  >
+                  <span
+                    id="preview-original-price"
+                    class="text-xs text-gray-400 line-through hidden"
+                    >RD$0</span
+                  >
+                </div>
+                <div class="flex items-center gap-2 mt-1">
+                  <span
+                    id="preview-category"
+                    class="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full"
+                    >Categoría</span
+                  >
+                  <span
+                    id="preview-badge"
+                    class="badge-preview hidden"
+                    style="
+                      background: linear-gradient(135deg, #ff8fab, #e06b8a);
+                    "
+                    >Badge</span
+                  >
+                  <span
+                    id="preview-new"
+                    class="badge-preview hidden"
+                    style="
+                      background: linear-gradient(135deg, #5b9bd5, #3a7cc0);
+                    "
+                    >NUEVO</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-3 pt-2">
+            <button
+              type="submit"
+              id="form-submit-btn"
+              class="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white py-3.5 rounded-xl font-bold text-sm hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
+            >
+              Guardar Producto
+            </button>
+            <button
+              type="button"
+              onclick="closeModal()"
+              class="px-6 py-3.5 rounded-xl border border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ======== MODAL: CONFIRMAR ELIMINACIÓN ======== -->
+    <div
+      id="delete-modal"
+      class="modal-overlay fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none"
+    >
+      <div
+        class="modal-content bg-white rounded-3xl w-full max-w-sm transform scale-95 opacity-0 shadow-2xl p-8 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <i data-lucide="trash-2" class="w-8 h-8 text-red-500"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-gray-800 mb-2">
+          ¿Eliminar producto?
+        </h3>
+        <p id="delete-product-name" class="text-gray-500 text-sm mb-6">
+          Este producto será eliminado permanentemente.
+        </p>
+        <div class="flex gap-3">
+          <button
+            onclick="closeDeleteModal()"
+            class="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            id="confirm-delete-btn"
+            class="flex-1 px-4 py-3 rounded-xl bg-red-500 text-white font-semibold text-sm hover:bg-red-600 transition-colors"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
