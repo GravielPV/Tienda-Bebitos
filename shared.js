@@ -135,33 +135,59 @@ function loadProducts() {
 }
 
 // ============================================
-// CARGA/GUARDADO DESDE SERVIDOR (NUBE)
+// SUPABASE CONFIG
+// ============================================
+const SUPABASE_URL = "https://kweptvmyalzysodvuenr.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt3ZXB0dm15YWx6eXNvZHZ1ZW5yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNTczMTQsImV4cCI6MjA5MTkzMzMxNH0.iRrgStDVlR5A17BkYMsk8WqXMSDPy55UwqQJdYiQf1o";
+
+const SUPABASE_HEADERS = {
+  "apikey": SUPABASE_ANON_KEY,
+  "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+  "Content-Type": "application/json",
+  "Prefer": "return=representation",
+};
+
+// ============================================
+// CARGA/GUARDADO DESDE SUPABASE (NUBE)
 // ============================================
 async function loadProductsFromServer() {
   try {
-    const res = await fetch("/api/products");
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/store_config?key=eq.products&select=value`,
+      { headers: SUPABASE_HEADERS }
+    );
     if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
+      const rows = await res.json();
+      if (rows.length > 0 && Array.isArray(rows[0].value)) {
+        const data = rows[0].value;
         localStorage.setItem("bebitos_products", JSON.stringify(data));
         return data.map((p) => ({ inStock: true, ...p }));
       }
     }
   } catch (e) {
-    console.warn("API no disponible, usando datos locales");
+    console.warn("Supabase no disponible, usando datos locales");
   }
   return loadProducts();
 }
 
 async function saveProductsToServer(products) {
   try {
-    await fetch("/api/products", {
+    const payload = {
+      key: "products",
+      value: products,
+      updated_at: new Date().toISOString(),
+    };
+    // UPSERT: inserta o actualiza si la key ya existe
+    await fetch(`${SUPABASE_URL}/rest/v1/store_config`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(products),
+      headers: {
+        ...SUPABASE_HEADERS,
+        "Prefer": "resolution=merge-duplicates",
+      },
+      body: JSON.stringify(payload),
     });
   } catch (e) {
-    console.warn("No se pudo guardar en el servidor");
+    console.warn("No se pudo guardar en Supabase");
   }
 }
 
