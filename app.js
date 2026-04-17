@@ -16,7 +16,8 @@ let currentSort = "default";
 // ============================================
 // INICIALIZACIÓN
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  products = await loadProductsFromServer();
   initLucideIcons();
   renderProducts();
   setupFilters();

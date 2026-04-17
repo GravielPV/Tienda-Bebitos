@@ -13,8 +13,8 @@ let deleteTargetId = null;
 // ============================================
 // INICIALIZACIÓN
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
-  products = loadProducts();
+document.addEventListener("DOMContentLoaded", async () => {
+  products = await loadProductsFromServer();
   renderTable();
   updateStats();
   setupSearchAndFilter();
@@ -33,6 +33,7 @@ function initIcons() {
 // ============================================
 function saveProducts() {
   localStorage.setItem("bebitos_products", JSON.stringify(products));
+  saveProductsToServer(products);
 }
 
 // ============================================

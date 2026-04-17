@@ -9,7 +9,8 @@ let cart = JSON.parse(localStorage.getItem("bebitos_cart") || "[]");
 // ============================================
 // INICIALIZACIÓN
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  products = await loadProductsFromServer();
   if (typeof lucide !== "undefined") lucide.createIcons();
 
   const params = new URLSearchParams(window.location.search);

@@ -135,6 +135,37 @@ function loadProducts() {
 }
 
 // ============================================
+// CARGA/GUARDADO DESDE SERVIDOR (NUBE)
+// ============================================
+async function loadProductsFromServer() {
+  try {
+    const res = await fetch("/api/products");
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        localStorage.setItem("bebitos_products", JSON.stringify(data));
+        return data.map((p) => ({ inStock: true, ...p }));
+      }
+    }
+  } catch (e) {
+    console.warn("API no disponible, usando datos locales");
+  }
+  return loadProducts();
+}
+
+async function saveProductsToServer(products) {
+  try {
+    await fetch("/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(products),
+    });
+  } catch (e) {
+    console.warn("No se pudo guardar en el servidor");
+  }
+}
+
+// ============================================
 // UTILIDADES
 // ============================================
 function escapeHtml(text) {
